@@ -39,8 +39,12 @@ defmodule Setting.Core do
     def get_by_key(key) do
         query = from s in SqliteMonitor.Model.Setting, where: s.key == type(^key, :string), select: s
         result = SqliteMonitor.Repo.all(query)
-        [head | tail] = result
-        head
+        if length(result) != 0 do
+            [head | tail] = result
+            head
+        else 
+            ""
+        end
     end
 
     def get_all() do

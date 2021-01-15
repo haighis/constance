@@ -25,8 +25,14 @@ defmodule MonitorScheduler do
     # This is a fail safe to completely disable notifications in Constance
     # Get setting if all notification are enabled. 
     all_notifications_enabled = Setting.Core.get_by_key("all_notifications_enabled")
-    if all_notifications_enabled.value == "true" do 
-      Process.send_after(self(), :work, 900_000)
+    if all_notifications_enabled != "" do
+      if all_notifications_enabled.value == "true" do 
+        Process.send_after(self(), :work, 900_000)
+      else 
+        IO.puts "Notifications are not enabled"  
+      end
+    else
+        IO.puts "Constance not setup, please run Setup REST API endpoint"  
     end
   end
   
