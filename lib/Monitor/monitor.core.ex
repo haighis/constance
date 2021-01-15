@@ -12,15 +12,25 @@
 # Monitor.Core.get_all      
 # SqliteMonitor.Repo.all(SqliteMonitor.Model.Item)   
 # detail2 = Poison.encode!(%Monitor.Http{uri: "http://www.news.com"})  
-# Monitor.Core.put("news.com","httpv1","5",detail2)      
+# Monitor.Core.save("news.com","httpv1","5",detail2) 
+# Monitor.Core.update(1,"news.com","httpv1","5",detail2)      
 # Monitor.Core.delete_by_id("52cd171c-70db-43bf-9763-a6160bd7baf4") 
 # Monitor.Core.get_by_id("52cd171c-70db-43bf-9763-a6160bd7baf4") 
 defmodule Monitor.Core do
     # Handle Put - Updates (or Inserts the value if it does not exist in the cache)
-    def put(name, type, interval, details) do
+    def save(name, type, interval, details) do
         {result, monitor_item} = SqliteMonitor.Repo.insert(%SqliteMonitor.Model.Item{name: name, type: type, interval: interval, details: details}) 
         IO.puts " #{inspect{monitor_item}}"
         result
+    end
+
+    def update(id, name, interval, details) do
+        post = SqliteMonitor.Repo.get!(SqliteMonitor.Model.Item, id)
+        post = Ecto.Changeset.change post, name: name, interval: interval, details: details
+        case SqliteMonitor.Repo.update post do
+        {:ok, struct}       -> IO.puts "i updated " # Updated with success
+        {:error, changeset} -> # Something went wrong
+        end
     end
 
     def get_by_id(id) do
@@ -40,7 +50,7 @@ defmodule Monitor.Core do
     def delete_by_id(id) do
         post = SqliteMonitor.Repo.get!(SqliteMonitor.Model.Item,id)
         case SqliteMonitor.Repo.delete post do
-        {:ok, struct}       -> IO.puts "i delete " # Deleted with success
+        {:ok, struct}       -> :ok 
         {:error, changeset} -> # Something went wrong
         end
     end

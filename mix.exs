@@ -32,6 +32,8 @@ defmodule Constance.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+     # {:slackex, "~> 0.0.1"},
+      {:slack, "~> 0.23.5"},
       {:sqlite_ecto2, "~> 2.2"},
       {:sendgrid, "~> 2.0"},
       {:poison, "~> 3.0"},

@@ -31,11 +31,11 @@ defmodule ConstanceWeb.Telemetry do
       ),
 
       # Database Metrics
-      summary("lrucache_api.repo.query.total_time", unit: {:native, :millisecond}),
-      summary("lrucache_api.repo.query.decode_time", unit: {:native, :millisecond}),
-      summary("lrucache_api.repo.query.query_time", unit: {:native, :millisecond}),
-      summary("lrucache_api.repo.query.queue_time", unit: {:native, :millisecond}),
-      summary("lrucache_api.repo.query.idle_time", unit: {:native, :millisecond}),
+      summary("constance.repo.query.total_time", unit: {:native, :millisecond}),
+      summary("constance.repo.query.decode_time", unit: {:native, :millisecond}),
+      summary("constance.repo.query.query_time", unit: {:native, :millisecond}),
+      summary("constance.repo.query.queue_time", unit: {:native, :millisecond}),
+      summary("constance.repo.query.idle_time", unit: {:native, :millisecond}),
 
       # VM Metrics
       summary("vm.memory.total", unit: {:byte, :kilobyte}),

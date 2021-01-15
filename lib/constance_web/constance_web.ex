@@ -30,7 +30,7 @@ defmodule ConstanceWeb do
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/lrucache_api_web/templates",
+        root: "lib/constance_web/templates",
         namespace: ConstanceWeb
 
       # Import convenience functions from controllers
