@@ -12,8 +12,7 @@
 # Monitor.Core.get_all      
 # SqliteMonitor.Repo.all(SqliteMonitor.Model.Item)   
 # detail2 = Poison.encode!(%Monitor.Http{uri: "http://www.news.com"})  
-# Monitor.Core.save("news.com","httpv1","5",detail2) 
-# Monitor.Core.update(1,"news.com","httpv1","5",detail2)      
+# Monitor.Core.save("news.com","httpv1","5",detail2)      
 # Monitor.Core.delete_by_id("52cd171c-70db-43bf-9763-a6160bd7baf4") 
 # Monitor.Core.get_by_id("52cd171c-70db-43bf-9763-a6160bd7baf4") 
 defmodule Monitor.Core do

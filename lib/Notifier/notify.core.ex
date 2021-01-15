@@ -3,7 +3,7 @@
 # 
 # Design
 # The Notify library uses sendgrid and slack
-# If a notification of sendgrid or slack is enabled (stored in Settings) then the notification method is used
+# If a notification for sendgrid or slack is enabled (stored in Settings) then the notification method is used
 # There is a fail safe in monitor.scheduler.ex to turn off all notifications from being sent
 #
 # This library could be enhanced to be a gen_server that would get all the Settings below in an init method, then store
@@ -34,7 +34,7 @@ defmodule Notify.Core do
             SendGrid.Email.add_to(to_email) |> 
             SendGrid.Email.put_from(from_email) |> 
             SendGrid.Email.put_subject(message) |> 
-            SendGrid.Email.put_text("Hello,\n\nPlease note the #{monitor} monitor is #{status}. \n\n Thank You,\n\n Constance Team\n\n") |> 
+            SendGrid.Email.put_text("Hello,\n\nPlease note the #{monitor} monitor is #{status}. \n\n Thank You,\n\n Constance\n\n") |> 
             SendGrid.Mail.send()
         end
     end

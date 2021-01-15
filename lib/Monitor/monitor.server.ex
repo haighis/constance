@@ -40,7 +40,7 @@ defmodule Monitor.Server do
 
     def handle_cast({:save, name, type, interval, details}, state) do
         # Call functional core library to put a key/value
-        Core.add(name, type, interval, details)
+        Core.save(name, type, interval, details)
         {:noreply, state}
     end
 

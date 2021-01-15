@@ -14,7 +14,7 @@ wget --quiet \
   --header 'Content-Type: application/json' \
   --body-data '{"slack_apikey": "SOME_KEY","sendgrid_apikey": "SOME_KEY","notifications_enabled": "true", "email_notifications_enabled": "false","slack_notifications_enabled": "true","email_from_address": "SOME_EMAIL_ADDRESS","email_to_address": "SOME_EMAIL_ADDRESS" }' \
   --output-document \
-  - http://localhost:4000/api/monitors
+  - http://localhost:4000/api/setup
 ```
 - A Slack channel called constance-app-alerts is required for Slack notifications
 - Save a Monitor by making a POST request to http://localhost:4000/api/monitors
