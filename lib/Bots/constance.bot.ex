@@ -19,10 +19,9 @@
 # Cache.Server.start_link(cache_name: "test", cache_capacity: 5, name: :mycache)
 # GenServer.cast(:mycache,{:put, 1,1})
 # GenServer.call(:mycache,{:get, 1}) 
-# Slack.Bot.start_link(ConstanceBot, [], "xoxb-1659129843200-1630271874326-YwVPNpZQfyrc58xA3UVzvHm1", name: :bot) 
-#{:ok, server} = Slack.Bot.start_link(ConstanceBot, [], "xoxb-1659129843200-1630271874326-YwVPNpZQfyrc58xA3UVzvHm1", name: :bot) 
-# {:ok, server} = Slack.Bot.start_link(ConstanceBot, [], "xoxb-1659129843200-1630271874326-YwVPNpZQfyrc58xA3UVzvHm1", name: :bot) 
-# xoxb-1659129843200-1637547039410-cxd4STDLu93z6qh4RubQlzGl
+# Slack.Bot.start_link(ConstanceBot, [], "", name: :bot) 
+#{:ok, server} = Slack.Bot.start_link(ConstanceBot, [], "", name: :bot) 
+# {:ok, server} = Slack.Bot.start_link(ConstanceBot, [], "", name: :bot) 
 # GenServer.cast(:bot,{:message, "test","general"})
 # GenServer.call(:bot,{:message, "test","general"})
 defmodule ConstanceBot do
@@ -31,7 +30,7 @@ defmodule ConstanceBot do
     def start_link(opts) do
         IO.puts "in in start link for bot"
         name = opts[:name]
-        GenServer.start_link(__MODULE__, [], name: name) #"xoxb-1659129843200-1630271874326-YwVPNpZQfyrc58xA3UVzvHm1"
+        GenServer.start_link(__MODULE__, [], name: name) 
     end
 
     def init(init_arg) do
