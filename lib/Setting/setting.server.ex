@@ -26,6 +26,12 @@ defmodule Setting.Server do
     end
 
     # Server (callbacks)
+    def handle_call({:get_all}, _from, state) do
+        # Call functional core library
+        results = Core.get_all
+        {:reply, results, state}
+    end
+    
     def handle_cast({:setup, 
         email_notifications_enabled, 
         slack_notifications_enabled, 

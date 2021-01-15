@@ -27,25 +27,25 @@ defmodule Monitor.Server do
 
     # Server (callbacks)
     def handle_call({:get_all}, _from, state) do
-        # Call functional core library to get a value by key
+        # Call functional core library
         results = Core.get_all
         {:reply, results, state}
     end
 
     def handle_cast({:update, key, name, interval, details}, state) do
-        # Call functional core library to put a key/value
+        # Call functional core library
         Core.update(key, name, interval, details)
         {:noreply, state}
     end
 
     def handle_cast({:save, name, type, interval, details}, state) do
-        # Call functional core library to put a key/value
+        # Call functional core library
         Core.save(name, type, interval, details)
         {:noreply, state}
     end
 
     def handle_cast({:delete, key}, state) do
-        # Call functional core library to put a key/value
+        # Call functional core library
         Core.delete_by_id(key)
         {:noreply, state}
     end

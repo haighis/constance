@@ -27,6 +27,7 @@ defmodule MonitorScheduler do
     all_notifications_enabled = Setting.Core.get_by_key("all_notifications_enabled")
     if all_notifications_enabled != "" do
       if all_notifications_enabled.value == "true" do 
+        IO.puts "Notifications are enabled"  
         Process.send_after(self(), :work, 900_000)
       else 
         IO.puts "Notifications are not enabled"  

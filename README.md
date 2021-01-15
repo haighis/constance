@@ -35,3 +35,12 @@ wget --quiet \
 iex -S mix 
 
 ```
+
+## Building a self executing Release and running a Release
+
+```sh
+export MIX_ENV=prod
+mix setup
+mix release
+./constance
+```

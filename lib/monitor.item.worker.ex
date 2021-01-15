@@ -20,7 +20,7 @@ defmodule MonitorItemWorker do
           GenServer.cast(self(), {:success})
       :error ->
           GenServer.cast(self(), {:failure})
-          IO.puts "we did not succeed"
+          #IO.puts "we did not succeed"
     end
     {:noreply, state}
   end

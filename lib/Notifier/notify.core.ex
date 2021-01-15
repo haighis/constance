@@ -19,15 +19,17 @@
 defmodule Notify.Core do
     def send_notification(monitor,status) do
         message = "Constance Notification - #{monitor} is #{status}"
+        IO.puts message <> "\n"
         slack_api_key = Setting.Core.get_by_key("slack_api_key")
 
         is_slack_enabled = Setting.Core.get_by_key("slack_notifications_enabled")
         if is_slack_enabled.value == "true" do 
-            IO.puts "slack is enabled" <> message
+            IO.puts "Slack Notification is enabled\n " <> message
             Slack.Web.Chat.post_message("constance-app-alerts",message,%{token: slack_api_key.value})
         end
         is_email_enabled = Setting.Core.get_by_key("email_notifications_enabled")
         if is_email_enabled.value == "true" do
+            send_grid_key = Setting.Core.get_by_key("send_grid_key").value
             from_email = Setting.Core.get_by_key("email_from_address").value
             to_email = Setting.Core.get_by_key("email_to_address").value
             SendGrid.Email.build() |> 
@@ -35,7 +37,7 @@ defmodule Notify.Core do
             SendGrid.Email.put_from(from_email) |> 
             SendGrid.Email.put_subject(message) |> 
             SendGrid.Email.put_text("Hello,\n\nPlease note the #{monitor} monitor is #{status}. \n\n Thank You,\n\n Constance\n\n") |> 
-            SendGrid.Mail.send()
+            SendGrid.Mail.send(api_key: send_grid_key)
         end
     end
 end

@@ -1,17 +1,38 @@
 defmodule Constance.MixProject do
   use Mix.Project
 
+    @app :constance
+
   def project do
     [
-      app: :constance,
+      app: @app,
       version: "0.1.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      aliases: aliases(),
+      deps: deps(),
+      releases: [{@app, release()}],
+      preferred_cli_env: [release: :prod]
     ]
   end
+
+  # def project do
+  #   [
+  #     app: @app,
+  #     version: "0.1.0",
+  #     elixir: "~> 1.7",
+  #     elixirc_paths: elixirc_paths(Mix.env()),
+  #     compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+  #     start_permanent: Mix.env() == :prod,
+  #     aliases: aliases(),
+  #     deps: deps(),
+  #     releases: [{@app, release()}],
+  #     preferred_cli_env: [release: :prod]
+  #   ]
+  # end
+
 
   # Configuration for the OTP application.
   #
@@ -32,7 +53,6 @@ defmodule Constance.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-     # {:slackex, "~> 0.0.1"},
       {:slack, "~> 0.23.5"},
       {:sqlite_ecto2, "~> 2.2"},
       {:sendgrid, "~> 2.0"},
@@ -44,7 +64,26 @@ defmodule Constance.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:bakeware, "~> 0.1.4"}
+    ]
+  end
+
+  defp aliases do
+    [
+      assets: ["cmd npm run deploy --prefix assets"],
+      release: ["assets", "phx.digest", "release"],
+      setup: ["deps.get", "cmd npm install --prefix assets"]
+    ]
+  end
+
+  defp release do
+    [
+      overwrite: true,
+      cookie: "#{@app}_cookie",
+      quiet: true,
+      steps: [:assemble, &Bakeware.assemble/1],
+      strip_beams: Mix.env() == :prod
     ]
   end
 end
