@@ -1,4 +1,7 @@
 # This bot is not complete and is for learning
+# {:ok, rtm} = Slack.Bot.start_link(SlackRtm, [], "token")
+# send rtm, {:message, "External message", "#general"}
+# See https://github.com/BlakeWilliams/Elixir-Slack
 defmodule SlackRtm do
   use Slack
 

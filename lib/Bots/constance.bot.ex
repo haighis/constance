@@ -11,19 +11,9 @@
 #   end
 #   def handle_event(_, _, state), do: {:ok, state}
 # end
-# {:ok, server} = Cache.Server.start_link("test",5)
-# Cache.Server.put server, "1", "test"
-# Cache.Server.get server, "1"
-# Cache.Server.stop server
-# Start GenServer by Name 
-# Cache.Server.start_link(cache_name: "test", cache_capacity: 5, name: :mycache)
-# GenServer.cast(:mycache,{:put, 1,1})
-# GenServer.call(:mycache,{:get, 1}) 
 # Slack.Bot.start_link(ConstanceBot, [], "", name: :bot) 
 #{:ok, server} = Slack.Bot.start_link(ConstanceBot, [], "", name: :bot) 
 # {:ok, server} = Slack.Bot.start_link(ConstanceBot, [], "", name: :bot) 
-# GenServer.cast(:bot,{:message, "test","general"})
-# GenServer.call(:bot,{:message, "test","general"})
 defmodule ConstanceBot do
   use Slack
 
