@@ -34,14 +34,15 @@ defmodule MonitorItemWorker do
   end
 
   def handle_cast({:success}, state) do
+    #IO.puts "in am in sucess message" <> state.name
     # TODO store a success entry in status success history table
-     #Notify.Core.send_notification state.name, "up"
+    #Notify.Core.send_notification state.name, "up"
     {:stop, :done, state}
   end
 
   def handle_cast({:failure}, state) do
     # TODO store a failure entry in status failure history table
-    IO.puts "in am in failure message" <> state.name
+    #IO.puts "in am in failure message" <> state.name
     Notify.Core.send_notification state.name, "down"
     {:stop, :done, state}
   end

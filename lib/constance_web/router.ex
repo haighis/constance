@@ -8,8 +8,12 @@ defmodule ConstanceWeb.Router do
 
   scope "/api", ConstanceWeb do
     pipe_through :api
-    get "/keyvalues/:key", KeyValueController, :get
-    post "/keyvalues", KeyValueController, :put 
+    post "/setup", SetupController, :setup
+    get "/monitors/:key", MonitorController, :get
+    get "/monitors", MonitorController, :get_all
+    post "/monitors", MonitorController, :save 
+    put "/monitors/:key", MonitorController, :update
+    delete "/monitors/:key", MonitorController, :delete
   end
 
   # Handle Pages

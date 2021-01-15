@@ -22,17 +22,17 @@ iex -S mix
 
 - Install Node.js dependencies with `npm install` inside the `assets` directory
 - Start Phoenix endpoint with `mix phx.server`
-- Save a key/value by making a POST request to http://localhost:4000/api/keyvalues
+- Save a key/value by making a POST request to http://localhost:4000/api/monitors
 ```
 wget --quiet \
   --method POST \
   --header 'Content-Type: application/json' \
-  --body-data '{"key": "2","value": "kelton"}' \
+  --body-data '{"title": "Some Site","type": "httpv1"}' \
   --output-document \
-  - http://localhost:4000/api/keyvalues
+  - http://localhost:4000/api/monitors
 ```
 
-- Get a value for key by making a GET request to http://localhost:4000/api/keyvalues
+- Get a value for key by making a GET request to http://localhost:4000/api/monitors
 
 ```
 wget --quiet \

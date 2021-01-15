@@ -13,11 +13,13 @@ config :constance, ConstanceWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "7uWNjnyXEUsD/jnwTjSXyFdM0eow+EYIAdDsufhD/cEfxMW/aztK6fEGgHAE+m3E",
   render_errors: [view: LrucacheApiWeb.ErrorView, accepts: ~w(json), layout: false],
-  pubsub_server: LrucacheApi.PubSub,
+  pubsub_server: Constance.PubSub,
   live_view: [signing_salt: "qKEM2UlV"]
 
-config :sendgrid,
-  api_key: "PUT YOUR SENDGRID KEY HERE"
+# These are Settings as key/value in Ecto Setting table but they can be specified here
+# for development purposes. Never store them here and then check in this code to source control
+#config :sendgrid, api_key: ""
+#config :slack, api_token: ""
 
 config :constance, SqliteMonitor.Repo,
   adapter: Sqlite.Ecto2,

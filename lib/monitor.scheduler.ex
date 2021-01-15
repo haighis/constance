@@ -22,7 +22,12 @@ defmodule MonitorScheduler do
   end
   
   defp schedule_work do
-    Process.send_after(self(), :work, 30_000)
+    # This is a fail safe to completely disable notifications in Constance
+    # Get setting if all notification are enabled. 
+    all_notifications_enabled = Setting.Core.get_by_key("all_notifications_enabled")
+    if all_notifications_enabled.value == "true" do 
+      Process.send_after(self(), :work, 900_000)
+    end
   end
   
   defp do_recurring_task(state) do

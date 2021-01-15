@@ -1,5 +1,5 @@
 defmodule ConstanceWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :lrucache_api
+  use Phoenix.Endpoint, otp_app: :constance
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
@@ -22,7 +22,7 @@ defmodule ConstanceWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :lrucache_api,
+    from: :constance,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
@@ -30,7 +30,7 @@ defmodule ConstanceWeb.Endpoint do
   # :code_reloader configuration of your endpoint.
   # if code_reloading? do
   #   plug Phoenix.CodeReloader
-  #   , otp_app: :lrucache_api
+  #   , otp_app: :constance
   # end
 
   plug Phoenix.LiveDashboard.RequestLogger,
