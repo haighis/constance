@@ -5,7 +5,7 @@ defmodule SqliteMonitor.Repo.Migrations.Monitors do
     create table(:monitors) do
       add :name, :string
       add :type, :string
-      add :interval, :string
+      add :paused, :boolean, default: false
       add :details, :string
       timestamps()
     end

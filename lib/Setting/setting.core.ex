@@ -23,6 +23,30 @@ defmodule Setting.Core do
         result
     end
 
+    def setup(scheduler_interval_seconds, 
+        email_notifications_enabled, 
+        slack_notifications_enabled, 
+        all_notifications_enabled, 
+        slack_apikey,
+        sendgrid_apikey,
+        email_to_address,
+        email_from_address) do
+        # Call functional core library to Save Settings
+        delete_all
+        save "scheduler_interval",scheduler_interval_seconds
+        save "email_notifications_enabled",email_notifications_enabled
+        save "slack_notifications_enabled",slack_notifications_enabled
+        save "all_notifications_enabled",all_notifications_enabled
+        save "slack_api_key",slack_apikey
+        save "send_grid_key",sendgrid_apikey
+        save "email_to_address",email_to_address
+        save "email_from_address",email_from_address
+    end
+
+    def default_setup() do
+        setup "5", "false", "false", "false", "", "", "", ""
+    end
+
     def update(id, key, value) do
         setting = SqliteMonitor.Repo.get!(SqliteMonitor.Model.Setting, id)
         setting = Ecto.Changeset.change setting, key: key, value: value

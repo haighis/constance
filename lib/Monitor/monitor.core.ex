@@ -16,16 +16,26 @@
 # Monitor.Core.delete_by_id("52cd171c-70db-43bf-9763-a6160bd7baf4") 
 # Monitor.Core.get_by_id("52cd171c-70db-43bf-9763-a6160bd7baf4") 
 defmodule Monitor.Core do
-    # Handle Put - Updates (or Inserts the value if it does not exist in the cache)
-    def save(name, type, interval, details) do
-        {result, monitor_item} = SqliteMonitor.Repo.insert(%SqliteMonitor.Model.Item{name: name, type: type, interval: interval, details: details}) 
-        IO.puts " #{inspect{monitor_item}}"
+    import Ecto.Query, only: [from: 2]
+    def save(name, type, details) do
+        # Paused is disabled by default
+        {result, monitor_item} = SqliteMonitor.Repo.insert(%SqliteMonitor.Model.Item{name: name, type: type, details: details}) 
+       #IO.puts " #{inspect{monitor_item}}"
         result
     end
 
-    def update(id, name, interval, details) do
+    def pause(id, paused) do
         post = SqliteMonitor.Repo.get!(SqliteMonitor.Model.Item, id)
-        post = Ecto.Changeset.change post, name: name, interval: interval, details: details
+        post = Ecto.Changeset.change post, paused: paused
+        case SqliteMonitor.Repo.update post do
+        {:ok, struct}       -> IO.puts "i paused " # Updated with success
+        {:error, changeset} -> # Something went wrong
+        end
+    end
+
+    def update(id, name, details) do
+        post = SqliteMonitor.Repo.get!(SqliteMonitor.Model.Item, id)
+        post = Ecto.Changeset.change post, name: name, details: details
         case SqliteMonitor.Repo.update post do
         {:ok, struct}       -> IO.puts "i updated " # Updated with success
         {:error, changeset} -> # Something went wrong
@@ -37,13 +47,20 @@ defmodule Monitor.Core do
         result    
     end
 
-    def get_all() do
-        items = SqliteMonitor.Repo.all(SqliteMonitor.Model.Item)
+    def get_all(is_paused \\ false) do
+        if is_paused == false do
+            query = from(m in SqliteMonitor.Model.Item, where: m.paused == false)
+            items = SqliteMonitor.Repo.all(query)
+        else
+            items = SqliteMonitor.Repo.all(SqliteMonitor.Model.Item)
+        end 
+
+        #items = SqliteMonitor.Repo.all(SqliteMonitor.Model.Item)
         # for x <- items do
         #     IO.inspect(x)
         #     IO.puts " item " <> x.name
         # end
-        items
+        #items
     end
 
     def delete_by_id(id) do

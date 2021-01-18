@@ -6,15 +6,23 @@ defmodule ConstanceWeb.MonitorController do
     json conn |> put_status(:ok), results
   end
 
+  def pause(conn, 
+  %{
+    "key" => key,
+    "paused" => paused
+  } = params) do 
+    GenServer.cast(:monitor_gen_server,{:pause,key,paused})
+    send_resp(conn, :no_content, "")
+  end
+
   def update(conn, 
   %{
     "key" => key,
     "name" => name, 
-    "interval" => interval,
     "url" => url,
   } = params) do 
     encoded = Poison.encode!(%Monitor.Http{uri: url})  
-    GenServer.cast(:monitor_gen_server,{:update,key,name,interval,encoded})
+    GenServer.cast(:monitor_gen_server,{:update,key,name,encoded})
     send_resp(conn, :no_content, "")
   end
 
@@ -22,11 +30,10 @@ defmodule ConstanceWeb.MonitorController do
   %{
     "name" => name, 
     "type" => type,
-    "interval" => interval,
     "url" => url,
   } = params) do 
     encoded = Poison.encode!(%Monitor.Http{uri: url})  
-    GenServer.cast(:monitor_gen_server,{:save,name,type,interval,encoded})
+    GenServer.cast(:monitor_gen_server,{:save,name,type,encoded})
     json conn |> put_status(:created), params
   end
 

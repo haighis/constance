@@ -28,19 +28,26 @@ defmodule Monitor.Server do
     # Server (callbacks)
     def handle_call({:get_all}, _from, state) do
         # Call functional core library
-        results = Core.get_all
+        # specify that we want all monitors both paused and not paused monitors
+        results = Core.get_all true
         {:reply, results, state}
     end
 
-    def handle_cast({:update, key, name, interval, details}, state) do
+    def handle_cast({:pause, key, paused}, state) do
         # Call functional core library
-        Core.update(key, name, interval, details)
+        Core.pause(key, paused)
         {:noreply, state}
     end
 
-    def handle_cast({:save, name, type, interval, details}, state) do
+    def handle_cast({:update, key, name, details}, state) do
         # Call functional core library
-        Core.save(name, type, interval, details)
+        Core.update(key, name, details)
+        {:noreply, state}
+    end
+
+    def handle_cast({:save, name, type, details}, state) do
+        # Call functional core library
+        Core.save(name, type, details)
         {:noreply, state}
     end
 

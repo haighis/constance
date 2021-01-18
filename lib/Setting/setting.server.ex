@@ -31,8 +31,9 @@ defmodule Setting.Server do
         results = Core.get_all
         {:reply, results, state}
     end
-    
+
     def handle_cast({:setup, 
+        scheduler_interval_seconds,
         email_notifications_enabled, 
         slack_notifications_enabled, 
         all_notifications_enabled, 
@@ -41,15 +42,15 @@ defmodule Setting.Server do
         email_to_address,
         email_from_address
         }, state) do
-        # Call functional core library to Save Settings
-        Core.delete_all
-        Core.save("email_notifications_enabled",email_notifications_enabled)
-        Core.save("slack_notifications_enabled",slack_notifications_enabled)
-        Core.save("all_notifications_enabled",all_notifications_enabled)
-        Core.save("slack_api_key",slack_apikey)
-        Core.save("send_grid_key",sendgrid_apikey)
-        Core.save("email_to_address",email_to_address)
-        Core.save("email_from_address",email_from_address)
+        
+        Core.setup scheduler_interval_seconds,
+        email_notifications_enabled, 
+        slack_notifications_enabled, 
+        all_notifications_enabled, 
+        slack_apikey,
+        sendgrid_apikey,
+        email_to_address,
+        email_from_address
         {:noreply, state}
     end
 
