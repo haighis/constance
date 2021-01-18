@@ -6,18 +6,20 @@ A personal desktop network monitor. This library uses patterns functional core a
 
 - Install dependencies with `mix deps.get`
 - Install Node.js dependencies with `npm install` inside the `assets` directory
-- Run `mix ecto.migrate`
+- Run `mix ecto.migrate` 
 - Run `iex -S mix` or `mix phx.server`
 - Setup Constance by running Setup REST API endpoint to configure API Keys, notifications and email addresses.
 ```
 wget --quiet \
   --method POST \
   --header 'Content-Type: application/json' \
-  --body-data '{"slack_apikey": "SOME_KEY","sendgrid_apikey": "SOME_KEY","notifications_enabled": "true", "email_notifications_enabled": "false","slack_notifications_enabled": "true","email_from_address": "SOME_EMAIL_ADDRESS","email_to_address": "SOME_EMAIL_ADDRESS" }' \
+  --body-data '{"scheduler_interval": "5", "slack_apikey": "SOME_KEY","sendgrid_apikey": "SOME_KEY","notifications_enabled": "true", "email_notifications_enabled": "false","slack_notifications_enabled": "true","email_from_address": "SOME_EMAIL_ADDRESS","email_to_address": "SOME_EMAIL_ADDRESS" }' \
   --output-document \
   - http://localhost:4000/api/setup
 ```
-- A Slack channel called constance-app-alerts is required for Slack notifications
+- If you would like to enable Slack Integration:
+- Create a Slack bot user and capture the slack api key 
+- Create a Slack channel called constance-app-alerts
 - Save a Monitor by making a POST request to http://localhost:4000/api/monitors
 
 ```

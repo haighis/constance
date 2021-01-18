@@ -14,6 +14,7 @@ defmodule ConstanceWeb.Router do
     get "/monitors", MonitorController, :get_all
     post "/monitors", MonitorController, :save 
     put "/monitors/:key", MonitorController, :update
+    put "/monitors/:key/pause", MonitorController, :pause
     delete "/monitors/:key", MonitorController, :delete
   end
 

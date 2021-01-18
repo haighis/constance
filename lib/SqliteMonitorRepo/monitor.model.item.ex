@@ -4,7 +4,7 @@ defmodule SqliteMonitor.Model.Item do
   schema "monitors" do
     field :name, :string
     field :type, :string
-    field :interval, :string
+    field :paused, :boolean, default: false
     field :details, :string
     timestamps()
   end

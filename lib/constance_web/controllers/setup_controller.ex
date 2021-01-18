@@ -9,9 +9,11 @@ defmodule ConstanceWeb.SetupController do
     "slack_notifications_enabled" => slack_notifications_enabled,
     "notifications_enabled" => notifications_enabled,
     "email_from_address" => email_from_address,
-    "email_to_address" => email_to_address
+    "email_to_address" => email_to_address,
+    "scheduler_interval" => scheduler_interval
   } = params) do 
     GenServer.cast(:setting_gen_server,{:setup,
+    scheduler_interval,
     email_notifications_enabled,
     slack_notifications_enabled,
     notifications_enabled,
