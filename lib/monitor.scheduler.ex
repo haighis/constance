@@ -29,11 +29,11 @@ defmodule MonitorScheduler do
       if all_notifications_enabled.value == "true" do 
         
         scheduler_interval_seconds = Setting.Core.get_by_key("scheduler_interval")
-        interval = 0 #5 * 60_000  
+        interval = 0 
         if scheduler_interval_seconds != "" do
           interval = String.to_integer(scheduler_interval_seconds.value) * 60_000
           IO.puts "Scheduler interval: " <> Integer.to_string interval
-          IO.puts "Notifications are configured properly" <> Integer.to_string interval
+          IO.puts "Notifications are configured properly"
           Process.send_after(self(), :work, interval)
         else
           interval = 5 * 60_000  
@@ -41,13 +41,11 @@ defmodule MonitorScheduler do
           Process.send_after(self(), :work, interval)
         end
         IO.puts "Notifications are enabled"  
-        #IO.puts "Scheduler interval: " <> Integer.to_string interval
       else 
         IO.puts "Notifications are not enabled"  
       end
     else
         IO.puts "Constance not setup, please run Setup REST API endpoint"  
-
     end
   end
   

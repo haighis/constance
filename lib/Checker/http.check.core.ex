@@ -4,7 +4,6 @@
 # 
 # Design
 # The Monitor uses HTTPoison
-# - Etso Ecto Adapter Repository pattern
 # Usage
 # Http.Check.Core.process_by_url "http://www.test.com" 
 defmodule Http.Check.Core do

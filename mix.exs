@@ -18,22 +18,6 @@ defmodule Constance.MixProject do
     ]
   end
 
-  # def project do
-  #   [
-  #     app: @app,
-  #     version: "0.1.0",
-  #     elixir: "~> 1.7",
-  #     elixirc_paths: elixirc_paths(Mix.env()),
-  #     compilers: [:phoenix, :gettext] ++ Mix.compilers(),
-  #     start_permanent: Mix.env() == :prod,
-  #     aliases: aliases(),
-  #     deps: deps(),
-  #     releases: [{@app, release()}],
-  #     preferred_cli_env: [release: :prod]
-  #   ]
-  # end
-
-
   # Configuration for the OTP application.
   #
   # Type `mix help compile.app` for more information.
