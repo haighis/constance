@@ -17,7 +17,7 @@ If a Monitor Item that is being checked somehow crashes the GenServer and we are
 our network monitoring is compromised. A dynamic supervisor will work by starting up a separate monitor item
 GenServer for each monitor item.
 
-(Constance_GenServer_Entity_Relationships.jpeg "Constance GenServer Entity Relationships")
+[Constance GenServer Entity Relationships](Constance_GenServer_Entity_Relationships.jpeg)
 
 # Monitor Scheduler
 
