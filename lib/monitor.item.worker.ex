@@ -6,7 +6,7 @@ defmodule MonitorItemWorker do
   end
 
   def init([name, url]) do
-    send(self(), :deploy_student_repo)
+    send(self(), :check_item)
     {:ok,
       %{
         name: name, url: url
@@ -14,7 +14,10 @@ defmodule MonitorItemWorker do
     }
   end
 
-  def handle_info(:deploy_student_repo, state) do
+  def handle_info(:check_item, state) do
+    # Call functional core to do a Http Check for url
+    # If success then send a message of success
+    # If fail then send a message of failure
     case Http.Check.Core.process_by_url(state.url) do
       :ok ->
           GenServer.cast(self(), {:success})
@@ -23,14 +26,6 @@ defmodule MonitorItemWorker do
           #IO.puts "we did not succeed"
     end
     {:noreply, state}
-  end
-
-  def success(student_repo_worker_pid, student_repo) do
-    GenServer.cast(student_repo_worker_pid, {:success, student_repo})
-  end
-
-  def failure(student_repo_worker_pid, error) do
-    GenServer.cast(student_repo_worker_pid, {:failure, error})
   end
 
   def handle_cast({:success}, state) do

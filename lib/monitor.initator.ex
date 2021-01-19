@@ -1,4 +1,4 @@
-# Monitor Initiator that is a helper library to start the Monitor Item Supervisor
+# Monitor Initiator is a helper library to start the Monitor Item Supervisor
 defmodule MonitorInitiator do
   #  This function runs the query for to get all monitor items to start, iterates over the results 
   #  and tells the MonitorItemSupervisor to start a child process for each monitor item to check.
