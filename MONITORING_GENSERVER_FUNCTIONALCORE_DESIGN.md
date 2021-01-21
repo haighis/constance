@@ -3,6 +3,10 @@
 In Constance we have this notion of a Monitor. A monitor represents the url being checked by the system.
 A monitor also has a monitor name such as Github.com web svc that represents the monitor item.
 
+We need a way for many monitors to be checked at the same time on some schedule. If we run our monitors in a 
+traditional forloop style then they will be run sequentially one at a time. This won't give us the speed
+we need to run them at the same time. 
+
 To solve our speed issue, we wanted something that would provide concurrency. To ensure that an error
 checking one url would be properly handled and not prevent the rest of the monitor items from being checked,
 we wanted something fault tolerant.
@@ -45,13 +49,14 @@ check process.
 
 # Monitor Item Worker
 
-A GenServer that handles calling the monitor library that checks whether a website is "up" or "down" and
+A GenServer that handles calling the Http Check Core library that checks whether a website is "up" or "down" and
 then triggers a notification in the event a monitor item is down. Monitor Item checks are encapsulated in
 a library Http.Check.Core that handle the details of calling out and doing an http check for a url.
 
 This GenServer has a restart set to Temporary so that if they crash while doing a monitor check
 then they aren't restarted. This is a potential bug and is a future consideration. For now an http check
-just succeeds but when there are other more complicated checks such as ping, traceroute, database checks then
+just succeeds but when there are other more complicated checks such as ping, traceroute, database checks then 
+consideration to handle genserver crashes will need to be done.
 
 When this GenServer starts up it is hydrated with state that contains the monitor url and monitor name.
 The GenServer sends itself a message for :check_item that is handled in `handle_info(:check_item, state)` method signature.
@@ -59,7 +64,7 @@ In `handle_info` a call is done to the Http.Check.Core library method `process_b
 check for the monitor item. Upon the pattern match for :ok atom a success message is sent to itself via
 `GenServer.cast(self(), {:success})`. When the pattern match for :error atom occurs then a failure message
 is sent to itself via `GenServer.cast(self(), {:failure})`. When a failure message occurs then Notifications are
-sent via Notifier library. See Notifier library for details of SendGrid and Slack Notifications.
+sent via Notify library. See Notifier library for details of SendGrid and Slack Notifications.
 When the method signature for `handle_cast({:failure}, state)` is met then the Notifier library is called passing
 in the Monitor name and a "down" message. Currently we don't track success for Monitor in the system where this
 is a feature enhancement to store success checks for the current day, week for each scheduler
@@ -85,5 +90,5 @@ are not confifgured then you can see notification via standard output when you r
 
 Usage:
 
-- Call Notify.Core.send_notification "Github.com http svc", "up"
-- Call Notify.Core.send_notification "Github.com http svc", "down"
+- Call `Notify.Core.send_notification "Github.com http svc", "up"`
+- Call `Notify.Core.send_notification "Github.com http svc", "down"`
