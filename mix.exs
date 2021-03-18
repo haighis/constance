@@ -24,7 +24,7 @@ defmodule Constance.MixProject do
   def application do
     [
       mod: {Constance.Application, []},
-      extra_applications: [:logger, :runtime_tools, :sqlite_ecto2, :ecto]
+      extra_applications: [:logger, :runtime_tools, :ecto]
     ]
   end
 
@@ -38,7 +38,8 @@ defmodule Constance.MixProject do
   defp deps do
     [
       {:slack, "~> 0.23.5"},
-      {:sqlite_ecto2, "~> 2.2"},
+      {:ecto_sql, "~> 3.0"},
+      {:postgrex, ">= 0.0.0"},
       {:sendgrid, "~> 2.0"},
       {:poison, "~> 3.0"},
       {:httpoison, "~> 1.7"},

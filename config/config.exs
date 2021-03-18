@@ -22,8 +22,10 @@ config :constance, ConstanceWeb.Endpoint,
 #config :slack, api_token: ""
 
 config :constance, SqliteMonitor.Repo,
-  adapter: Sqlite.Ecto2,
-  database: "constance.sqlite3"
+  database: "constance",
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost"
 
 config :constance, ecto_repos: [SqliteMonitor.Repo]
 
