@@ -7,8 +7,9 @@ A personal desktop network monitor. This library uses patterns functional core a
 - Install dependencies with `mix deps.get`
 - Install Node.js dependencies with `npm install` inside the `assets` directory
 - Run `mix ecto.migrate` 
+- Run `mix run priv/repo/seeds.exs`
 - Run `iex -S mix phx.server` or `mix phx.server`
-- By default Constance is not configured and must be setup
+- By default Constance has default empty settings
 - Download Constance Postman Collection for all Setup/Monitors/Settings API Resources
 - If you would like to enable Slack Integration:
 - Create a Slack bot user and capture the slack api key 
