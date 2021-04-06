@@ -12,7 +12,7 @@ config :constance, ConstanceWeb.Endpoint,
 
   url: [host: "localhost"],
   secret_key_base: "7uWNjnyXEUsD/jnwTjSXyFdM0eow+EYIAdDsufhD/cEfxMW/aztK6fEGgHAE+m3E",
-  render_errors: [view: LrucacheApiWeb.ErrorView, accepts: ~w(json), layout: false],
+  render_errors: [view: ConstanceWeb.ErrorView, accepts: ~w(json), layout: false],
   pubsub_server: Constance.PubSub,
   live_view: [signing_salt: "qKEM2UlV"]
 

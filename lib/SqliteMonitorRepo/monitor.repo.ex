@@ -2,5 +2,5 @@ defmodule SqliteMonitor.Repo do
   @otp_app Mix.Project.config()[:app]
   use Ecto.Repo,
     otp_app: @otp_app,
-    adapter: Sqlite.Ecto2
+    adapter: Ecto.Adapters.Postgres
 end
